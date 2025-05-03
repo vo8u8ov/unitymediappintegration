@@ -22,8 +22,11 @@ public class ObjectPooler : MonoBehaviour
     {
         foreach (var obj in pool)
         {
-            if (!obj.activeInHierarchy)
+            if (!obj.activeInHierarchy) //オブジェクトがシーン上で非アクティブなら再利用
+            {
+                Debug.Log("Reusing object from pool");
                 return obj;
+            }
         }
 
         // プールが足りない場合は拡張（必要に応じて）

@@ -57,7 +57,7 @@ public class ObjSpawner : MonoBehaviour
             rb.AddForce(Vector3.up * 300f); // 上に力を加える
         }
 
-        StartCoroutine(DisableAfterSeconds(obj, 5f));  // 自動で非アクティブ化
+        StartCoroutine(DisableAfterSeconds(obj, 2f));  // 自動で非アクティブ化
     }
 
     IEnumerator DisableAfterSeconds(GameObject obj, float seconds)
