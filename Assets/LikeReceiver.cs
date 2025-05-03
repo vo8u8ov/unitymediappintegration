@@ -8,6 +8,7 @@ public class LikeReceiver : MonoBehaviour
     public ParticleSystem likeParticles;  // ← Unity上でInspectorにドラッグ
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
+    private bool isFist = false;
     private Vector3 lastHandPosition = Vector3.zero;
     
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class LikeReceiver : MonoBehaviour
         receiver.LocalPort = 9000;
         receiver.Bind("/like", OnLike);
         receiver.Bind("/hand_pos", OnHandPosition);  // ← 追加！
+        receiver.Bind("/fist", OnFist);
     }
 
     void OnLike(OSCMessage message)
@@ -24,15 +26,11 @@ public class LikeReceiver : MonoBehaviour
         int likeState = message.Values[0].IntValue;
         isLike = (likeState == 1);
 
-        Debug.Log("Received /like: " + likeState);
+        // Debug.Log("Received /like: " + likeState);
 
         if (isLike)
         {
-            if (!likeParticles.isPlaying)
-            {
-                likeParticles.Clear();
-                likeParticles.Play();
-            }
+            likeParticles.Play();
         }
         else
         {
@@ -41,6 +39,14 @@ public class LikeReceiver : MonoBehaviour
                 likeParticles.Stop();
             }
         }
+    }
+
+    void OnFist(OSCMessage message)
+    {
+        int fistState = message.Values[0].IntValue;
+        isFist = (fistState == 1);
+
+        Debug.Log("Received /fist: " + fistState);
     }
 
     void OnHandPosition(OSCMessage message)
