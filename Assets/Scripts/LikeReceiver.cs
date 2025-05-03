@@ -5,7 +5,8 @@ using extOSC;
 
 public class LikeReceiver : MonoBehaviour
 {
-    public ParticleSystem likeParticles;  // ← Unity上でInspectorにドラッグ
+    public ParticleSystem likeParticles;
+    public ObjSpawner objSpawner;
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
     private bool isFist = false;
@@ -31,9 +32,11 @@ public class LikeReceiver : MonoBehaviour
         if (isLike)
         {
             likeParticles.Play();
+            objSpawner.IsSpawn(true, likeParticles.transform);
         }
         else
         {
+            objSpawner.IsSpawn(false);
             if (likeParticles.isPlaying)
             {
                 likeParticles.Stop();
