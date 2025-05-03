@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectPooler : MonoBehaviour
+{
+    public GameObject prefabToPool;
+    public int poolSize = 20;
+    private List<GameObject> pool = new List<GameObject>();
+
+    void Start()
+    {
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject obj = Instantiate(prefabToPool);
+            obj.SetActive(false);
+            pool.Add(obj);
+        }
+    }
+
+    public GameObject GetPooledObject()
+    {
+        foreach (var obj in pool)
+        {
+            if (!obj.activeInHierarchy)
+                return obj;
+        }
+
+        // プールが足りない場合は拡張（必要に応じて）
+        GameObject newObj = Instantiate(prefabToPool);
+        newObj.SetActive(false);
+        pool.Add(newObj);
+        return newObj;
+    }
+}

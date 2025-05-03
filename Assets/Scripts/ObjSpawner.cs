@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _objectsToSpawn;
+    public ObjectPooler pooler;
     private float _spawnInterval = 0.1f;
     private float _spawnTimer = 0f;
     private bool _isSpawning = false; 
@@ -22,7 +22,7 @@ public class ObjSpawner : MonoBehaviour
             _spawnTimer -= Time.deltaTime; // カウントダウン！
             if (_spawnTimer <= 0f)
             {
-                SpawnObjects();
+                SpawnFromPool();
                 _spawnTimer = _spawnInterval;  // リセット
             }
         }
@@ -43,17 +43,26 @@ public class ObjSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnObjects()
+    void SpawnFromPool()
     {
-        int randomIndex = Random.Range(0, _objectsToSpawn.Length);
-        GameObject objToSpawn = _objectsToSpawn[randomIndex];
+        GameObject obj = pooler.GetPooledObject();
+        obj.transform.position = transform.position;
+        obj.transform.rotation = transform.rotation;
+        obj.SetActive(true);
 
-        GameObject spawned = Instantiate(objToSpawn, transform.position, transform.rotation);
-        Rigidbody rb = spawned.GetComponent<Rigidbody>();
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            float upwardForce = 500f; // 上に向かう力を設定
-            rb.AddForce(Vector3.up * upwardForce);
+            rb.velocity = Vector3.zero; // 前の動きをリセット
+            rb.AddForce(Vector3.up * 300f); // 上に力を加える
         }
+
+        StartCoroutine(DisableAfterSeconds(obj, 5f));  // 自動で非アクティブ化
+    }
+
+    IEnumerator DisableAfterSeconds(GameObject obj, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        obj.SetActive(false);
     }
 }
