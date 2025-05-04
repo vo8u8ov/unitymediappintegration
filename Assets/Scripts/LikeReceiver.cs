@@ -14,6 +14,12 @@ public class LikeReceiver : MonoBehaviour
     private int likeCount = 0; // Likeのカウントを保持
     private Vector3 lastHandPosition = Vector3.zero;
     private LogoScaler logoScaler; // LogoScalerのインスタンスを保持
+    private float likeDuration = 0f;
+    private Color color0; 
+    private Color color1;
+    private float colorChangeInterval = 1f;
+    private float colorChangeTimer = 0f;
+    private Color randomColor = Color.white;
     
     // Start is called before the first frame update
     void Start()
@@ -24,7 +30,63 @@ public class LikeReceiver : MonoBehaviour
         receiver.Bind("/hand_pos", OnHandPosition); 
 
         logoScaler = logoObj.GetComponent<LogoScaler>();
+        for (int i = 0; i < likeParticles.Length; i++)
+        {
+            if (i == 0)
+            {
+                color0 = likeParticles[i].main.startColor.color; // 0番目の色を取得
+            }
+            else if (i == 1)
+            {
+                color1 = likeParticles[i].main.startColor.color; // 1番目の色を取得
+            }
+        }
     }
+
+    void Update()
+{
+    if (likeCount >= 2)  // 1人以上がLike中
+    {
+        likeDuration += Time.deltaTime;
+
+        if (likeDuration > 2.5f)
+        {
+            colorChangeTimer += Time.deltaTime;
+
+            if (colorChangeTimer >= colorChangeInterval)
+            {
+                colorChangeTimer = 0f;
+
+                // 新しく出る粒子にだけカラフルな色を適用
+                foreach (var ps in likeParticles)
+                {
+                    var main = ps.main;
+                    float hue = Random.Range(0f, 1f); // 色相だけランダム
+                    Color brightColor = Color.HSVToRGB(hue, 1f, 1f); // 鮮やかで明るい
+
+                    main.startColor = brightColor;
+                }
+            }
+        }
+    }
+    else
+    {
+        Debug.Log("一人以下のLike中");
+        likeDuration = 0f;
+        colorChangeTimer = 0f;
+
+        for (int i = 0; i < likeParticles.Length; i++)
+        {
+            var ps = likeParticles[i];
+            var main = ps.main;
+
+            Color baseColor = (i == 0) ? color0 : color1;
+            main.startColor = baseColor;
+        }
+    }
+}
+
+
 
     void OnLike(OSCMessage message)
     {
@@ -90,7 +152,6 @@ public class LikeReceiver : MonoBehaviour
 
             if (auraEffect.isPlaying)
             {
-                Debug.Log("Aura not playing");
                 auraEffect.Stop();
             }
         }
