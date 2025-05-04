@@ -6,27 +6,16 @@ public class HandColliderController : MonoBehaviour
 {
     public float forceStrength = 100f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         Rigidbody rb = other.attachedRigidbody;
-        Debug.Log("Hit: " + other.name);
-        if (other.name == "LogoObj") return;
+        if (rb == null || rb.isKinematic) return;
 
-        if (other.tag == "Container") return;
+        if (other.name == "LogoObj" || other.CompareTag("Container")) return;
 
-        if (rb.isKinematic)
-        {
-            rb.isKinematic = false; // 動くようにする
-        }
+        Vector3 dir = (other.transform.position - transform.position).normalized;
+        dir.z = 0f;
 
-        if (rb != null && !rb.isKinematic)
-        {
-            
-            // 手の方向から外側に押す力を加える
-            Vector3 dir = (other.transform.position - transform.position).normalized;
-            dir.z = 0f;
-            dir = dir.normalized;
-            rb.AddForce(dir * forceStrength, ForceMode.Impulse);
-        }
+        rb.AddForce(dir * forceStrength * Time.deltaTime, ForceMode.Impulse);
     }
 }
