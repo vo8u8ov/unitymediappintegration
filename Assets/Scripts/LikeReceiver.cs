@@ -7,11 +7,13 @@ public class LikeReceiver : MonoBehaviour
 {
     public ParticleSystem likeParticles;
     public ParticleSystem auraEffect;
+    public GameObject logoObj;
     public ObjSpawner objSpawner;
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
     private bool isFist = false;
     private Vector3 lastHandPosition = Vector3.zero;
+    private LogoScaler logoScaler; // LogoScalerのインスタンスを保持
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,8 @@ public class LikeReceiver : MonoBehaviour
         receiver.Bind("/like", OnLike);
         receiver.Bind("/hand_pos", OnHandPosition);  // ← 追加！
         receiver.Bind("/fist", OnFist);
+
+        logoScaler = logoObj.GetComponent<LogoScaler>();
     }
 
     void OnLike(OSCMessage message)
@@ -34,11 +38,13 @@ public class LikeReceiver : MonoBehaviour
         {
             auraEffect.Play();
             likeParticles.Play();
+            logoScaler.SetLiked(true);
             objSpawner.IsSpawn(true, likeParticles.transform);
         }
         else
         {
             objSpawner.IsSpawn(false);
+            logoScaler.SetLiked(false);
             if (likeParticles.isPlaying)
             {
                 auraEffect.Stop();
@@ -72,6 +78,11 @@ public class LikeReceiver : MonoBehaviour
         );
 
         lastHandPosition = pos;
+
+        if (logoObj != null)
+        {
+            logoObj.transform.position = pos; // ロゴの位置を更新
+        }
 
         // パーティクル位置を更新
         if (likeParticles != null)
