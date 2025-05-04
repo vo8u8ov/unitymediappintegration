@@ -5,13 +5,13 @@ using extOSC;
 
 public class LikeReceiver : MonoBehaviour
 {
-    public ParticleSystem likeParticles;
+    public ParticleSystem[] likeParticles;
     public ParticleSystem auraEffect;
     public GameObject logoObj;
     public ObjSpawner objSpawner;
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
-    private bool isFist = false;
+    private int likeCount = 0; // Likeのカウントを保持
     private Vector3 lastHandPosition = Vector3.zero;
     private LogoScaler logoScaler; // LogoScalerのインスタンスを保持
     
@@ -21,8 +21,7 @@ public class LikeReceiver : MonoBehaviour
         receiver = gameObject.AddComponent<OSCReceiver>();
         receiver.LocalPort = 9000;
         receiver.Bind("/like", OnLike);
-        receiver.Bind("/hand_pos", OnHandPosition);  // ← 追加！
-        receiver.Bind("/fist", OnFist);
+        receiver.Bind("/hand_pos", OnHandPosition); 
 
         logoScaler = logoObj.GetComponent<LogoScaler>();
     }
@@ -30,26 +29,65 @@ public class LikeReceiver : MonoBehaviour
     void OnLike(OSCMessage message)
     {
         int likeState = message.Values[0].IntValue;
-        isLike = (likeState == 1);
+        Debug.Log("Received /like: " + likeState);
+        isLike = (likeState >= 1);
+        likeCount = likeState;
 
         // Debug.Log("Received /like: " + likeState);
 
         if (isLike)
         {
-            Debug.Log("Aura playing");
-            likeParticles.Play();
+            if (likeCount == 1)
+            {
+                // 0番目だけ再生、それ以外は停止
+                for (int i = 0; i < likeParticles.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (!likeParticles[i].isPlaying)
+                            likeParticles[i].Play();
+                    }
+                    else
+                    {
+                        if (likeParticles[i].isPlaying)
+                            likeParticles[i].Stop();
+                    }
+                }
+            }
+            else if (likeCount == 0)
+            {
+                for (int i = 0; i < likeParticles.Length; i++)
+                {
+                    if (likeParticles[i].isPlaying)
+                        likeParticles[i].Stop();
+                }
+            }
+            else if (likeCount >= 2)
+            {
+                for (int i = 0; i < likeParticles.Length; i++)
+                {
+                    likeParticles[i].Play();
+                }
+            }
+
             auraEffect.Play();
             logoScaler.SetLiked(true);
-            objSpawner.IsSpawn(true, likeParticles.transform);
+            objSpawner.IsSpawn(true, likeParticles[0].transform);
         }
         else
         {
             objSpawner.IsSpawn(false);
             logoScaler.SetLiked(false);
-            if (likeParticles.isPlaying)
+            likeCount = 0; // Likeのカウントをリセット
+
+            for (int i = 0; i < likeParticles.Length; i++)
             {
-                likeParticles.Stop();
+                if (likeParticles[i].isPlaying)
+                {
+                   likeParticles[i].Stop();
+                }
             }
+
             if (auraEffect.isPlaying)
             {
                 Debug.Log("Aura not playing");
@@ -58,13 +96,6 @@ public class LikeReceiver : MonoBehaviour
         }
     }
 
-    void OnFist(OSCMessage message)
-    {
-        int fistState = message.Values[0].IntValue;
-        isFist = (fistState == 1);
-
-        Debug.Log("Received /fist: " + fistState);
-    }
 
     void OnHandPosition(OSCMessage message)
     {
@@ -92,7 +123,17 @@ public class LikeReceiver : MonoBehaviour
         // パーティクル位置を更新
         if (likeParticles != null)
         {
-            likeParticles.transform.position = pos;
+            if (likeCount == 1)
+            {
+                likeParticles[0].transform.position = pos;
+            }
+            else if (likeCount >= 2)
+            {
+                for (int i = 0; i < likeParticles.Length; i++)
+                {
+                    likeParticles[i].transform.position = pos;
+                }
+            }
         }
 
         if (auraEffect != null)
