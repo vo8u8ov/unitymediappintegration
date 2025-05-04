@@ -5,7 +5,9 @@ using extOSC;
 
 public class HandReceiver : MonoBehaviour
 {
-    public Light myLight;
+    public ParticleSystem likeParticles;
+    public Light pointLight;
+    public Light areaLight;
     public GameObject handColliderObj;
     private Dictionary<string, Transform> handObjects = new Dictionary<string, Transform>();
     private HashSet<string> currentActiveHands = new HashSet<string>();
@@ -52,7 +54,7 @@ public class HandReceiver : MonoBehaviour
 
         Vector3 pos = new Vector3(
             Mathf.Lerp(-13f, 13f, x),
-            Mathf.Lerp(-13f, 13f, 1f - y),
+            Mathf.Lerp(-5f, 13f, 1f - y),
             0f
         );
 
@@ -84,20 +86,31 @@ public class HandReceiver : MonoBehaviour
 
         if (isLike)
         {
-            if (likeCount == 1)
+            // 💡 ライトを光らせる
+            pointLight.enabled = true;
+
+            if (likeCount >= 2)
             {
-                // 💡 ライトを光らせる
-                myLight.enabled = true;
+                // 💡 エリアライトを光らせる
+                areaLight.enabled = true;
+                likeParticles.Play();
+                    
             }
-            else if (likeCount >= 2)
+            else
             {
-                // 他の処理
+                // 💡 エリアライトを消す
+                areaLight.enabled = false;
+                if (likeParticles.isPlaying)
+                    likeParticles.Stop();
             }
         }
         else
         {
             // OFF にするときの処理
-            myLight.enabled = false;
+            pointLight.enabled = false;
+            areaLight.enabled = false;
+            if (likeParticles.isPlaying)
+                likeParticles.Stop();
         }
     }
 }
