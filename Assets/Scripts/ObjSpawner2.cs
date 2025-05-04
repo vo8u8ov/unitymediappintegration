@@ -8,7 +8,7 @@ public class ObjSpawner2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 50; i++)  // プール数と同じ
+        for (int i = 0; i < 100; i++)  // プール数と同じ
         {
             SpawnFromPool();
         }
@@ -24,16 +24,10 @@ public class ObjSpawner2 : MonoBehaviour
     {
         GameObject obj = pooler.GetPooledObject();
         // ランダムな位置を指定（例：x -5〜5, y -3〜3, z 2〜6）
-        float randX = Random.Range(-12f, 12f);
-        float randY = Random.Range(-6f, 6f);
+        float randX = Random.Range(-5f, 5f);
+        float randY = Random.Range(0f, 6f);
 
         obj.transform.position = new Vector3(randX, randY, 0);
         obj.SetActive(true);
-
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;  // 重力の影響なし、動かない
-        }
     }
 }

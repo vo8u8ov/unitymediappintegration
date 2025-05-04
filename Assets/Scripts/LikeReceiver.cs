@@ -27,7 +27,7 @@ public class LikeReceiver : MonoBehaviour
         receiver = gameObject.AddComponent<OSCReceiver>();
         receiver.LocalPort = 9000;
         receiver.Bind("/like", OnLike);
-        receiver.Bind("/hand_pos", OnHandPosition); 
+        receiver.Bind("/thumb_pos", OnHandPosition); 
 
         logoScaler = logoObj.GetComponent<LogoScaler>();
         for (int i = 0; i < likeParticles.Length; i++)
