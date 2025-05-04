@@ -6,6 +6,7 @@ using extOSC;
 public class LikeReceiver : MonoBehaviour
 {
     public ParticleSystem likeParticles;
+    public ParticleSystem auraEffect;
     public ObjSpawner objSpawner;
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
@@ -31,6 +32,7 @@ public class LikeReceiver : MonoBehaviour
 
         if (isLike)
         {
+            auraEffect.Play();
             likeParticles.Play();
             objSpawner.IsSpawn(true, likeParticles.transform);
         }
@@ -39,6 +41,7 @@ public class LikeReceiver : MonoBehaviour
             objSpawner.IsSpawn(false);
             if (likeParticles.isPlaying)
             {
+                auraEffect.Stop();
                 likeParticles.Stop();
             }
         }
@@ -60,14 +63,12 @@ public class LikeReceiver : MonoBehaviour
 
         float x = message.Values[0].FloatValue;
         float y = message.Values[1].FloatValue;
-        float z = message.Values[2].FloatValue;
-        Debug.Log($"Hand Position: x={x}, y={y}, z={z}");  // ← デバッグ用
 
         // MediaPipe（0〜1）→ Unityワールド座標（調整可能）
         Vector3 pos = new Vector3(
             Mathf.Lerp(-5f, 5f, x),
             Mathf.Lerp(-3f, 3f, 1f - y),  // y軸は上下反転
-            Mathf.Lerp(0f, 5f, -z)        // zは奥行き、反転して手前へ
+            0f
         );
 
         lastHandPosition = pos;
@@ -76,6 +77,11 @@ public class LikeReceiver : MonoBehaviour
         if (likeParticles != null)
         {
             likeParticles.transform.position = pos;
+        }
+
+        if (auraEffect != null)
+        {
+            auraEffect.transform.position = pos;
         }
     }
 }
