@@ -36,8 +36,9 @@ public class LikeReceiver : MonoBehaviour
 
         if (isLike)
         {
-            auraEffect.Play();
+            Debug.Log("Aura playing");
             likeParticles.Play();
+            auraEffect.Play();
             logoScaler.SetLiked(true);
             objSpawner.IsSpawn(true, likeParticles.transform);
         }
@@ -47,8 +48,12 @@ public class LikeReceiver : MonoBehaviour
             logoScaler.SetLiked(false);
             if (likeParticles.isPlaying)
             {
-                auraEffect.Stop();
                 likeParticles.Stop();
+            }
+            if (auraEffect.isPlaying)
+            {
+                Debug.Log("Aura not playing");
+                auraEffect.Stop();
             }
         }
     }
@@ -92,6 +97,7 @@ public class LikeReceiver : MonoBehaviour
 
         if (auraEffect != null)
         {
+            pos.z = 0.5f; 
             auraEffect.transform.position = pos;
         }
     }
