@@ -5,10 +5,13 @@ using extOSC;
 
 public class HandReceiver : MonoBehaviour
 {
+    public Light myLight;
     public GameObject handColliderObj;
     private Dictionary<string, Transform> handObjects = new Dictionary<string, Transform>();
     private HashSet<string> currentActiveHands = new HashSet<string>();
     private OSCReceiver receiver;
+    private bool isLike = false;
+    private int likeCount = 0; // Likeのカウントを保持
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +19,8 @@ public class HandReceiver : MonoBehaviour
         receiver.LocalPort = 9000;
         receiver.Bind("/hand", OnHand);
         receiver.Bind("/hand_pos/*/*", OnHandPosition); 
-        receiver.Bind("/active_hands", OnActiveHands); 
+        receiver.Bind("/active_hands", OnActiveHands);
+        receiver.Bind("/like", OnLike); 
     }
 
     void OnHand(OSCMessage message)
@@ -69,6 +73,31 @@ public class HandReceiver : MonoBehaviour
         {
             Debug.Log("key: " + key);
             handObjects[key].gameObject.SetActive(currentActiveHands.Contains(key));
+        }
+    }
+
+    void OnLike(OSCMessage message)
+    {
+        int likeState = message.Values[0].IntValue;
+        isLike = (likeState >= 1);
+        likeCount = likeState;
+
+        if (isLike)
+        {
+            if (likeCount == 1)
+            {
+                // 💡 ライトを光らせる
+                myLight.enabled = true;
+            }
+            else if (likeCount >= 2)
+            {
+                // 他の処理
+            }
+        }
+        else
+        {
+            // OFF にするときの処理
+            myLight.enabled = false;
         }
     }
 }
