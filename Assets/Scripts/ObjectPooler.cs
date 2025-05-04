@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    public GameObject prefabToPool;
+    public GameObject[] prefabsToPool;
     public int poolSize = 20;
     private List<GameObject> pool = new List<GameObject>();
 
@@ -12,7 +12,8 @@ public class ObjectPooler : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(prefabToPool);
+            GameObject prefab  = prefabsToPool[Random.Range(0, prefabsToPool.Length)];
+            GameObject obj = Instantiate(prefab);
             obj.SetActive(false);
             pool.Add(obj);
         }
@@ -30,7 +31,8 @@ public class ObjectPooler : MonoBehaviour
         }
 
         // プールが足りない場合は拡張（必要に応じて）
-        GameObject newObj = Instantiate(prefabToPool);
+        GameObject prefab = prefabsToPool[Random.Range(0, prefabsToPool.Length)];
+        GameObject newObj = Instantiate(prefab);
         newObj.SetActive(false);
         pool.Add(newObj);
         return newObj;

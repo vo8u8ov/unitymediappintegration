@@ -403,7 +403,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688543446}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -663,8 +663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df64c3b23d116948a36946987353ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToPool: {fileID: 1741550005370966691, guid: bcc2c9c911b5a2f4da63ccea8b3e6209,
-    type: 3}
+  prefabsToPool:
+  - {fileID: 1741550005370966691, guid: bcc2c9c911b5a2f4da63ccea8b3e6209, type: 3}
+  - {fileID: 4642395794129830385, guid: a9fb7faabbcf48549845578d828b1702, type: 3}
   poolSize: 20
 --- !u!1 &1569693741
 GameObject:
