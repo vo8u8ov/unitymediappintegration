@@ -19,6 +19,8 @@ public class DroneWave : MonoBehaviour
         float offsetX = (countX - 1) * spacing / 2f;
         float offsetZ = (countZ - 1) * spacing / 2f;
 
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+
         for (int x = 0; x < countX; x++)
         {
             for (int z = 0; z < countZ; z++)
@@ -26,6 +28,16 @@ public class DroneWave : MonoBehaviour
                 var pos = new Vector3(x * spacing - offsetX, 0, z * spacing - offsetZ);
                 var cube = Instantiate(cubePrefab, pos, Quaternion.identity, transform);
                 cubes[x, z] = cube.transform;
+
+                // グラデーション色の計算（X軸に応じて赤→青）
+                float t = (float)x / (countX - 1);
+                Color gradColor = Color.Lerp(Color.yellow, Color.cyan, t);
+                Color emissionColor = gradColor; // Emission強調
+
+                // 色を設定
+                Renderer renderer = cube.GetComponent<Renderer>();
+                mpb.SetColor("_EmissionColor", emissionColor);
+                renderer.SetPropertyBlock(mpb);
             }
         }
     }
