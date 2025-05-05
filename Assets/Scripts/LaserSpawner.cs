@@ -45,7 +45,7 @@ public class LaserSpawner : MonoBehaviour
             {
                 GameObject laser = Instantiate(laserPrefab, point.position, point.rotation);
                 // 例：3秒後に自動破棄
-                Destroy(laser, 3f);
+                // Destroy(laser, 5f);
             }
 
             yield return new WaitForSeconds(interval);
