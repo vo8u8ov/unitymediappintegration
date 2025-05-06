@@ -11,10 +11,14 @@ public class DroneWave : MonoBehaviour
     public float waveHeight = 1f;
     public float waveSpeed = 1f;
 
+    private bool isCurrentlyLiked = false;
     private Transform[,] cubes;
 
     void Start()
     {
+        // イベントに登録
+        LikeEventManager.Instance.OnLikeChanged += HandleLike;
+
         cubes = new Transform[countX, countZ];
         float offsetX = (countX - 1) * spacing / 2f;
         float offsetZ = (countZ - 1) * spacing / 2f;
@@ -42,6 +46,12 @@ public class DroneWave : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (LikeEventManager.Instance != null)
+            LikeEventManager.Instance.OnLikeChanged -= HandleLike;
+    }
+
     void Update()
     {
         float time = Time.time * waveSpeed;
@@ -57,5 +67,31 @@ public class DroneWave : MonoBehaviour
                 cubes[x, z].localPosition = Vector3.Lerp(cubes[x, z].localPosition, targetPos, Time.deltaTime * 5f);
             }
         }
+    }
+
+    private void HandleLike(bool isLike, int likeCount)
+    {
+        if (isLike && !isCurrentlyLiked)
+        {
+            isCurrentlyLiked = true;
+            BoostWave(); // 上昇処理
+        }
+        else if (!isLike && isCurrentlyLiked)
+        {
+            isCurrentlyLiked = false;
+            ResetWave(); // 元に戻す
+        }
+    }
+
+    private void BoostWave()
+    {
+        waveHeight *= 2f;
+        waveSpeed *= 2f;
+    }
+
+    private void ResetWave()
+    {
+        waveHeight /= 2f;
+        waveSpeed /= 2f;
     }
 }
