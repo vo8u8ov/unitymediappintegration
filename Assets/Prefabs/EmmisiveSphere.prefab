@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5045744709640816165}
   - component: {fileID: 9142646331311379328}
   - component: {fileID: 8221272434493698161}
+  - component: {fileID: 9211856133637827625}
   m_Layer: 0
   m_Name: EmmisiveSphere
   m_TagString: Untagged
@@ -105,3 +106,15 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9211856133637827625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934874997769809710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6378d232e265e45aa3e91f191dcda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

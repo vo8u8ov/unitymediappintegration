@@ -5,6 +5,8 @@ using extOSC;
 
 public class OSCReceiverHandler : MonoBehaviour
 {
+    public float handDepth = 0.5f; // 手の深さ
+    public Vector3 handScale = new Vector3(0.1f, 0.1f, 0.1f); // 手のスケール
     private OSCReceiver receiver;
     public GameObject handColliderObj;
     private Dictionary<string, Transform> handObjects = new Dictionary<string, Transform>();
@@ -55,14 +57,25 @@ public class OSCReceiverHandler : MonoBehaviour
 
         float x = message.Values[0].FloatValue;
         float y = message.Values[1].FloatValue;
+        float z = message.Values[2].FloatValue;
+
+        // z が遠いほど x/y の動きが小さくなるので、逆に補正
+        // 近いときは1.0倍、遠くなると最大3倍くらい動かすように
+        // z が 0.6 → 1（＝この距離を「遠い」と定義）
+        float zoomFactor = Mathf.Lerp(1.0f, 3.0f, Mathf.Clamp01(z / 0.6f));
+        // Mediapipeからは手の座標が「0〜1の正規化値」で送られてくる
+        // x - 0.5fは、x が中央からどれだけズレているか  x - 0.5f = 0.0 画面の中央 	= -0.5 かなり左にズレている +0.5 かなり右にズレている
+        x = 0.5f + (x - 0.5f) * zoomFactor;
+        y = 0.5f + (y - 0.5f) * zoomFactor;
 
         Vector3 pos = new Vector3(
-            Mathf.Lerp(-13f, 13f, x),
-            Mathf.Lerp(-5f, 13f, 1f - y),
-            0f
+            Mathf.Lerp(-80f, 80f, x),
+            Mathf.Lerp(-50f, 50f, 1f - y),
+            handDepth
         );
 
         handObjects[handKey].position = pos;
+        handObjects[handKey].localScale = handScale;
 
         // HandEventManager.Instance.UpdateHandPosition(handKey, pos);
     }

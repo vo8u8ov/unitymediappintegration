@@ -552,7 +552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b26fc71bb5c0704eb838e0b829fd5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handColliderObj: {fileID: 8992775770362121640, guid: 644b778b53d6bdf4684640db107f9bbb,
+  handDepth: 56
+  handScale: {x: 10, y: 10, z: 10}
+  handColliderObj: {fileID: 8992775770362121640, guid: 551a2ead2a6bcd64286014edb06d03f1,
     type: 3}
 --- !u!1 &940566130
 GameObject:
