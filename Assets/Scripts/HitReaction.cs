@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class HitReaction : MonoBehaviour
 {
+    private bool hasTriggered = false;
 
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Hand"))
+        if (other.CompareTag("Hand") && !hasTriggered)
         {
-            Debug.Log("Hit by hand");
+            hasTriggered = true;
+
+            if (ParticlePool.Instance != null)
+            {
+                ParticlePool.Instance.PlayEffect(transform.position);
+            }
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Hand"))
         {
-
+            hasTriggered = false;
         }
     }
 }
