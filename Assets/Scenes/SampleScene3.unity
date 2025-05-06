@@ -695,7 +695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 768822287394720818, guid: e9030de83df4cf94e88d5a1feaa96d27,
     type: 3}
-  poolSize: 50
+  poolSize: 300
 --- !u!1 &1569693741
 GameObject:
   m_ObjectHideFlags: 0
