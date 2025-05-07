@@ -5,6 +5,14 @@ using extOSC;
 
 public class OSCReceiverHandler : MonoBehaviour
 {
+    [Header("マッピング範囲（X軸）")]
+    public float minX = -60f;
+    public float maxX = 60f;
+
+    [Header("マッピング範囲（Y軸）")]
+    public float minY = -40f;
+    public float maxY = 40f;
+    
     public float handDepth = 0.5f; // 手の深さ
     public Vector3 handScale = new Vector3(0.1f, 0.1f, 0.1f); // 手のスケール
     private OSCReceiver receiver;
@@ -67,17 +75,24 @@ public class OSCReceiverHandler : MonoBehaviour
         // x - 0.5fは、x が中央からどれだけズレているか  x - 0.5f = 0.0 画面の中央 	= -0.5 かなり左にズレている +0.5 かなり右にズレている
         x = 0.5f + (x - 0.5f) * zoomFactor;
         y = 0.5f + (y - 0.5f) * zoomFactor;
-
+            
+        // Sample3
+        // Vector3 pos = new Vector3(
+        //     Mathf.Lerp(-80f, 80f, x),
+        //     Mathf.Lerp(-50f, 50f, 1f - y),
+        //     handDepth
+        // );
+        
         Vector3 pos = new Vector3(
-            Mathf.Lerp(-80f, 80f, x),
-            Mathf.Lerp(-50f, 50f, 1f - y),
+            Mathf.Lerp(minX, maxX, x),
+            Mathf.Lerp(minY, maxY, 1f - y),
             handDepth
         );
 
         handObjects[handKey].position = pos;
         handObjects[handKey].localScale = handScale;
 
-        // HandEventManager.Instance.UpdateHandPosition(handKey, pos);
+        HandEventManager.Instance.NotifyHandPos(handKey, pos);
     }
 
     void OnActiveHands(OSCMessage message)

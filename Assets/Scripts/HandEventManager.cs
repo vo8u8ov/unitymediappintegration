@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)] 
 public class HandEventManager : MonoBehaviour
 {
     public static HandEventManager Instance { get; private set; }
-
-    private Dictionary<string, Vector3> handPositions = new Dictionary<string, Vector3>();
+    public event Action<string, Vector3> OnHandChanged;
 
     private void Awake()
     {
@@ -20,18 +21,8 @@ public class HandEventManager : MonoBehaviour
         }
     }
 
-    public void UpdateHandPosition(string handKey, Vector3 position)
+    public void NotifyHandPos(string handkey, Vector3 pos)
     {
-        handPositions[handKey] = position;
-    }
-
-    public bool TryGetHandPosition(string handKey, out Vector3 position)
-    {
-        return handPositions.TryGetValue(handKey, out position);
-    }
-
-    public IEnumerable<Vector3> GetAllHandPositions()
-    {
-        return handPositions.Values;
+        OnHandChanged?.Invoke(handkey, pos);
     }
 }
