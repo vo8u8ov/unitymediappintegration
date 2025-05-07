@@ -11,20 +11,17 @@ public class ObjectRotatorByHand : MonoBehaviour
 
     void OnEnable()
     {
-        HandEventManager.Instance.OnHandChanged += HandleHandMove;
+        HandEventManager.Instance.OnRightHandChanged += HandleHandMove;
     }
 
     void OnDisable()
     {
         if (HandEventManager.Instance != null)
-            HandEventManager.Instance.OnHandChanged -= HandleHandMove;
+            HandEventManager.Instance.OnRightHandChanged -= HandleHandMove;
     }
 
     private void HandleHandMove(string handKey, Vector3 currentHandPos)
     {
-        // "right" という文字列を含むハンドキーのみ受け付ける（例："right_0"）
-        if (!handKey.ToLower().Contains("right")) return;
-
         if (lastRightHandPos != null)
         {
             float deltaX = currentHandPos.x - lastRightHandPos.Value.x;

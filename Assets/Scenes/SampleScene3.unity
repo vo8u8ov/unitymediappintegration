@@ -552,10 +552,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b26fc71bb5c0704eb838e0b829fd5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: -80
-  maxX: 80
-  minY: -50
-  maxY: 50
+  rightMinX: -80
+  rightMaxX: 80
+  rightMinY: -50
+  rightMaxY: 50
+  leftMinX: -80
+  leftMaxX: 80
+  leftMinY: -50
+  leftMaxY: 50
   handDepth: 56
   handScale: {x: 10, y: 10, z: 10}
   handColliderObj: {fileID: 8992775770362121640, guid: 551a2ead2a6bcd64286014edb06d03f1,
@@ -619,6 +623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 980859387}
   - component: {fileID: 980859386}
+  - component: {fileID: 980859388}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -653,6 +658,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &980859388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980859385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46734a0783abfa4c988cd4a61391618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1055851932
 GameObject:
   m_ObjectHideFlags: 0

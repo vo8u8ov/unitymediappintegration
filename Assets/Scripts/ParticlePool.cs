@@ -30,7 +30,6 @@ public class ParticlePool : MonoBehaviour
 
     public void PlayEffect(Vector3 position)
     {
-        Debug.Log("PlayEffect called with position: " + position);
         if (pool.Count > 0)
         {
             GameObject obj = pool.Dequeue();
