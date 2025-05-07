@@ -99,4 +99,4 @@ MonoBehaviour:
   floatSpeed: 5
   swayAmount: 0.5
   swaySpeed: 10
-  lifeTime: 10
+  lifeTime: 5

@@ -7,7 +7,7 @@ public class HeartMover : MonoBehaviour
     public float floatSpeed = 1.0f;
     public float swayAmount = 0.5f;
     public float swaySpeed = 2.0f;
-    public float lifeTime = 10.0f;
+    public float lifeTime = 5.0f;
 
     private Vector3 startPos;
     private float timer = 0f;

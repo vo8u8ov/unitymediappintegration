@@ -695,7 +695,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartPrefab: {fileID: 187542003129250974, guid: 5036f88d03a5acd40adcbf3ff64248e3,
     type: 3}
-  spawnPosition: {x: 1.5, y: -8.4, z: 0.7}
+  minX: -9
+  maxX: 9
+  y: -7
+  z: 0.7
 --- !u!1 &1191549106
 GameObject:
   m_ObjectHideFlags: 0
