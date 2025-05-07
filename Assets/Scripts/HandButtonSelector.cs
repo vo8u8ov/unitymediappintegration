@@ -13,6 +13,8 @@ public class HandButtonSelector : MonoBehaviour
     public float cursorX = 0f;
     private int currentIndex = -1;
     private float dwellTimer = 0f;
+    private bool isHovering = false;
+    private int clickedIndex = -1; // 最後にクリックされたボタン
 
     void OnEnable()
     {
@@ -23,6 +25,27 @@ public class HandButtonSelector : MonoBehaviour
     {
         if (HandEventManager.Instance != null)
             HandEventManager.Instance.OnLeftHandChanged -= HandleLeftHand;
+    }
+
+    void Update()
+    {
+        bool isLeftHandActive = OSCReceiverHandler.currentActiveHands.Contains("left_0");
+
+        if (handCursorUI != null && handCursorUI.gameObject.activeSelf != isLeftHandActive)
+        {
+            handCursorUI.gameObject.SetActive(isLeftHandActive);
+        }
+
+        if (isHovering)
+        {
+            dwellTimer += Time.deltaTime;
+
+            if (dwellTimer >= dwellTime)
+            {
+                ClickCurrentButton();
+                dwellTimer = 0f;
+            }
+        }
     }
 
     void HandleLeftHand(string handKey, Vector3 worldPos)
@@ -53,25 +76,26 @@ public class HandButtonSelector : MonoBehaviour
             if (btnRect.rect.Contains(btnLocalPoint))
             {
                 hoveredIndex = i;
+                Debug.Log($"Button {i}: local check {btnLocalPoint}, rect {btnRect.rect}");
                 break;
             }
         }
 
-        // ホバー処理とクリック処理は同じ
         if (hoveredIndex != currentIndex)
         {
             currentIndex = hoveredIndex;
             dwellTimer = 0f;
             HighlightButton(currentIndex);
+            isHovering = true;
         }
         else if (currentIndex != -1)
         {
-            dwellTimer += Time.deltaTime;
-            if (dwellTimer >= dwellTime)
-            {
-                ClickCurrentButton();
-                dwellTimer = 0f;
-            }
+            isHovering = true; // 継続ホバー中
+        }
+        else
+        {
+            isHovering = false; // ボタンに乗ってない
+            dwellTimer = 0f;
         }
     }
 
@@ -82,17 +106,25 @@ public class HandButtonSelector : MonoBehaviour
             Image img = buttons[i].GetComponent<Image>();
             if (img != null)
             {
-                img.color = (i == index) ? Color.yellow : Color.white;
+                if (i == clickedIndex)
+                    img.color = Color.blue;  // ✅ クリック済み
+                else if (i == index)
+                    img.color = Color.yellow; // ✅ 今ホバー中
+                else
+                    img.color = Color.white; // その他
             }
         }
     }
 
     void ClickCurrentButton()
     {
+         Debug.Log("ClickCurrentButton");
         if (currentIndex >= 0 && currentIndex < buttons.Count)
         {
             Debug.Log("Auto-clicked: " + buttons[currentIndex].name);
             buttons[currentIndex].onClick.Invoke();
+            clickedIndex = currentIndex;
+            HighlightButton(currentIndex); // ✅ 色を即更新
         }
     }
 }

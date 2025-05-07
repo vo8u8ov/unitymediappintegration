@@ -5,6 +5,8 @@ using extOSC;
 
 public class OSCReceiverHandler : MonoBehaviour
 {
+    public static HashSet<string> currentActiveHands = new HashSet<string>();
+    
     [Header("右手マッピング")]
     public float rightMinX = -60f;
     public float rightMaxX = 60f;
@@ -23,7 +25,7 @@ public class OSCReceiverHandler : MonoBehaviour
     private OSCReceiver receiver;
     public GameObject handColliderObj;
     private Dictionary<string, Transform> handObjects = new Dictionary<string, Transform>();
-    private HashSet<string> currentActiveHands = new HashSet<string>();
+    
     
     void Start()
     {
