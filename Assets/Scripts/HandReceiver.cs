@@ -5,6 +5,7 @@ using extOSC;
 
 public class HandReceiver : MonoBehaviour
 {
+    public UIManager uIManager;
     public ParticleSystem likeParticles;
     public Light pointLight;
     public Light areaLight;
@@ -13,8 +14,9 @@ public class HandReceiver : MonoBehaviour
     private HashSet<string> currentActiveHands = new HashSet<string>();
     private OSCReceiver receiver;
     private bool isLike = false;
-    private int likeCount = 0; // Likeのカウントを保持
-    // Start is called before the first frame update
+    private int likeCount = 0; 
+    private int prevLikeCount = 0;
+    private bool prevShowLikeText = false; 
     void Start()
     {
         receiver = gameObject.AddComponent<OSCReceiver>();
@@ -94,7 +96,7 @@ public class HandReceiver : MonoBehaviour
                 // 💡 エリアライトを光らせる
                 areaLight.enabled = true;
                 likeParticles.Play();
-                    
+
             }
             else
             {
@@ -111,6 +113,20 @@ public class HandReceiver : MonoBehaviour
             areaLight.enabled = false;
             if (likeParticles.isPlaying)
                 likeParticles.Stop();
+        }
+        
+        // 状態が変わったときだけUIを更新
+        bool shouldShowLikeText = likeCount >= 1;
+        bool isSuperLike = likeCount >= 2;
+
+        // 「表示するべきか」と「Likeの数」のどちらかに変化があったら更新
+        if (shouldShowLikeText != prevShowLikeText || likeCount != prevLikeCount)
+        {
+            uIManager.ShowLikeText(shouldShowLikeText, isSuperLike, likeCount);
+
+            // 状態を更新
+            prevShowLikeText = shouldShowLikeText;
+            prevLikeCount = likeCount;
         }
     }
 }
