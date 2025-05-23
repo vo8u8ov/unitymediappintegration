@@ -9,6 +9,7 @@ public class LikeReceiver : MonoBehaviour
     public ParticleSystem auraEffect;
     public GameObject logoObj;
     public ObjSpawner objSpawner;
+    public UIManager uIManager;
     private OSCReceiver receiver;
     private bool isLike = false;  // 現在Like中かどうかを記憶
     private int likeCount = 0; // Likeのカウントを保持
@@ -20,6 +21,8 @@ public class LikeReceiver : MonoBehaviour
     private float colorChangeInterval = 1f;
     private float colorChangeTimer = 0f;
     private Color randomColor = Color.white;
+    private int prevLikeCount = 0;
+    private bool prevShowLikeText = false;  // 前回のUI表示状態
     
     // Start is called before the first frame update
     void Start()
@@ -44,47 +47,61 @@ public class LikeReceiver : MonoBehaviour
     }
 
     void Update()
-{
-    if (likeCount >= 2)  // 1人以上がLike中
     {
-        likeDuration += Time.deltaTime;
-
-        if (likeDuration > 2.5f)
+        if (likeCount >= 2)  // 1人以上がLike中
         {
-            colorChangeTimer += Time.deltaTime;
+            likeDuration += Time.deltaTime;
 
-            if (colorChangeTimer >= colorChangeInterval)
+            if (likeDuration > 2.5f)
             {
-                colorChangeTimer = 0f;
+                colorChangeTimer += Time.deltaTime;
 
-                // 新しく出る粒子にだけカラフルな色を適用
-                foreach (var ps in likeParticles)
+                if (colorChangeTimer >= colorChangeInterval)
                 {
-                    var main = ps.main;
-                    float hue = Random.Range(0f, 1f); // 色相だけランダム
-                    Color brightColor = Color.HSVToRGB(hue, 1f, 1f); // 鮮やかで明るい
+                    colorChangeTimer = 0f;
 
-                    main.startColor = brightColor;
+                    // 新しく出る粒子にだけカラフルな色を適用
+                    foreach (var ps in likeParticles)
+                    {
+                        var main = ps.main;
+                        float hue = Random.Range(0f, 1f); // 色相だけランダム
+                        Color brightColor = Color.HSVToRGB(hue, 1f, 1f); // 鮮やかで明るい
+
+                        main.startColor = brightColor;
+                    }
                 }
             }
         }
-    }
-    else
-    {
-        Debug.Log("一人以下のLike中");
-        likeDuration = 0f;
-        colorChangeTimer = 0f;
-
-        for (int i = 0; i < likeParticles.Length; i++)
+        else
         {
-            var ps = likeParticles[i];
-            var main = ps.main;
+            Debug.Log("一人以下のLike中");
+            likeDuration = 0f;
+            colorChangeTimer = 0f;
 
-            Color baseColor = (i == 0) ? color0 : color1;
-            main.startColor = baseColor;
+            for (int i = 0; i < likeParticles.Length; i++)
+            {
+                var ps = likeParticles[i];
+                var main = ps.main;
+
+                Color baseColor = (i == 0) ? color0 : color1;
+                main.startColor = baseColor;
+            }
+        }
+
+        // 状態が変わったときだけUIを更新
+        bool shouldShowLikeText = likeCount >= 1;
+        bool isSuperLike = likeCount >= 2;
+
+        // 「表示するべきか」と「Likeの数」のどちらかに変化があったら更新
+        if (shouldShowLikeText != prevShowLikeText || likeCount != prevLikeCount)
+        {
+            uIManager.ShowLikeText(shouldShowLikeText, isSuperLike, likeCount);
+
+            // 状態を更新
+            prevShowLikeText = shouldShowLikeText;
+            prevLikeCount = likeCount;
         }
     }
-}
 
 
 
