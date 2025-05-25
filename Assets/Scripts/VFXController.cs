@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class VFXController : MonoBehaviour
 {
     public VisualEffect vfx; // VFX Graphをアタッチする
     public Vector2 vector2Value = new Vector2(1.0f, 1.0f); // Exposed名に合わせる
+    public Vector3 vector3Value = new Vector3(0,0,1); // Exposed名に合わせる
     // スケーリング係数（速度を調整）
     public float sensitivity = 10f;
     private Vector3? lastRightHandPos = null;
@@ -27,11 +29,22 @@ public class VFXController : MonoBehaviour
 
         if (lastRightHandPos.HasValue)
         {
-            Vector3 delta = currentHandPos - lastRightHandPos.Value;
-            vector2Value = new Vector2(-delta.x * sensitivity, delta.y * sensitivity);
+            // Vector3 delta = currentHandPos - lastRightHandPos.Value;
+            if (currentHandPos.x < 0)
+            {
+                vector3Value = new Vector3(0, 0, 1);
+            }
+            else
+            {
+                vector3Value = new Vector3(0, 0, -1);
+            }
+
+            vector2Value = new Vector2(Math.Abs(currentHandPos.x) * sensitivity, currentHandPos.y * sensitivity);
             Debug.Log($"[DELTA] Velocity set to {vector2Value}");
+            vfx.SetVector2("VelocityXY", defaultVector2Value + vector2Value);
+            vfx.SetVector3("DirectionVector", vector3Value);
         }
-        vfx.SetVector2("VelocityXY", defaultVector2Value + vector2Value);
+        
         lastRightHandPos = currentHandPos;
     }
     

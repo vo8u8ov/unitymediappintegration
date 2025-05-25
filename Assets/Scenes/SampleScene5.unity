@@ -311,7 +311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 1941893783}
   vector2Value: {x: 6, y: 6}
-  sensitivity: 2
+  vector3Value: {x: 0, y: 0, z: 1}
+  sensitivity: 0.3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +465,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 252.98145, y: -159.75476}
-  m_SizeDelta: {x: 362.39636, y: 145.06122}
+  m_AnchoredPosition: {x: 397.26917, y: -158.61865}
+  m_SizeDelta: {x: 650.9717, y: 147.3335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &499812104
 MonoBehaviour:
@@ -487,7 +488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Like !
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -800,10 +801,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023998079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d480af71ce4b6847b4e1e89a8923cfe, type: 3}
+  m_Script: {fileID: 11500000, guid: e1d32d2141d26934b89c79d7fa0e77f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LikeText: {fileID: 499812104}
+  DetectionText: {fileID: 499812104}
+  Text: Right hand in motion
+  FontSize: 36
 --- !u!1 &1164784963
 GameObject:
   m_ObjectHideFlags: 0
