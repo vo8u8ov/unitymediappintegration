@@ -7,24 +7,41 @@ public class VFXController : MonoBehaviour
 {
     public VisualEffect vfx; // VFX Graphをアタッチする
     public Vector2 vector2Value = new Vector2(1.0f, 1.0f); // Exposed名に合わせる
+    // スケーリング係数（速度を調整）
+    public float sensitivity = 10f;
+    private Vector3? lastRightHandPos = null;
+    private Vector2 defaultVector2Value = Vector2.one;
+    private bool isReset = false;
 
-    void Update()
+    void Start()
     {
-        // VFX Graph 側の Exposed プロパティ名が "VelocityXY" の Vector2型と一致させる
-        vfx.SetVector2("VelocityXY", vector2Value);
+        defaultVector2Value = vector2Value; // 初期値を保存
+        Debug.Log("VFXController started with default vector2Value: " + defaultVector2Value);
+        HandEventManager.Instance.OnRightHandChanged += HandleHandMove;
+        HandEventManager.Instance.OnNoHandsDetected += Reset;
+    }
 
-        // 上下キーで Y の値を動的に変更
-        if (Input.GetKey(KeyCode.UpArrow))
-            vector2Value.y += Time.deltaTime;
+    private void HandleHandMove(string handKey, Vector3 currentHandPos)
+    {
+        Debug.Log($"HandleHandMove called with handKey: {handKey}, currentHandPos: {currentHandPos}");
+        // 柔軟な条件で右手だけを対象に
+        if (!handKey.ToLower().Contains("right")) return;
 
-        if (Input.GetKey(KeyCode.DownArrow))
-            vector2Value.y -= Time.deltaTime;
-
-        // 左右キーで X の値を動的に変更
-        if (Input.GetKey(KeyCode.RightArrow))
-            vector2Value.x += Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-            vector2Value.x -= Time.deltaTime;
+        if (lastRightHandPos.HasValue)
+        {
+            Vector3 delta = currentHandPos - lastRightHandPos.Value;
+            vector2Value = new Vector2(-delta.x * sensitivity, delta.y * sensitivity);
+            Debug.Log($"[DELTA] Velocity set to {vector2Value}");
+        }
+        vfx.SetVector2("VelocityXY", defaultVector2Value + vector2Value);
+        lastRightHandPos = currentHandPos;
+    }
+    
+    private void Reset()
+    {
+        Debug.Log("Resetting VFXController state.");
+        lastRightHandPos = null;
+        vector2Value = defaultVector2Value; // 初期化
+        vfx.SetVector2("VelocityXY", vector2Value); // VFX Graph 側の Exposed プロパティも初期化
     }
 }

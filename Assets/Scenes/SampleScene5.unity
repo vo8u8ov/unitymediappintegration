@@ -311,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfx: {fileID: 1941893783}
   vector2Value: {x: 6, y: 6}
+  sensitivity: 2
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

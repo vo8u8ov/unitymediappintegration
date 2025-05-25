@@ -26,7 +26,10 @@ public class OSCReceiverHandler : MonoBehaviour
     public GameObject handColliderObj;
     private Dictionary<string, Transform> handObjects = new Dictionary<string, Transform>();
     
-    
+    private float lastActiveHandsTime = -999f;
+    private float activeHandsTimeout = 1.0f;
+    private bool wasPreviouslyActive = true;
+
     void Start()
     {
         receiver = gameObject.AddComponent<OSCReceiver>();
@@ -118,9 +121,21 @@ public class OSCReceiverHandler : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        Debug.Log($"[DEBUG] Time since last /active_hands: {Time.time - lastActiveHandsTime}");
+        // MediaPipeから何も来なくなったとき（通信停止）
+        if (Time.time - lastActiveHandsTime > activeHandsTimeout && wasPreviouslyActive)
+        {
+            Debug.LogWarning("🛑 /active_hands が途絶えています。MediaPipe無反応の可能性。");
+            HandEventManager.Instance.NotifyHandsInactive();
+            wasPreviouslyActive = false;
+        }
+    }
     void OnActiveHands(OSCMessage message)
     {
-        Debug.Log("Received /active_hands" );
+        lastActiveHandsTime = Time.time;
+        Debug.Log("Received /active_hands");
         currentActiveHands.Clear();
         foreach (var val in message.Values)
         {
@@ -130,6 +145,18 @@ public class OSCReceiverHandler : MonoBehaviour
         foreach (var key in new List<string>(handObjects.Keys))
         {
             handObjects[key].gameObject.SetActive(currentActiveHands.Contains(key));
+        }
+        
+        if (currentActiveHands.Count > 0 && !wasPreviouslyActive)
+        {
+            wasPreviouslyActive = true;
+        }
+
+        // 手が消えた状態（明示的に [] が来た場合）にも対応
+        if (currentActiveHands.Count == 0 && wasPreviouslyActive)
+        {
+            HandEventManager.Instance.NotifyHandsInactive();
+            wasPreviouslyActive = false;
         }
     }
 }
