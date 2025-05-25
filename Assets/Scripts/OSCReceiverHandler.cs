@@ -121,17 +121,16 @@ public class OSCReceiverHandler : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        Debug.Log($"[DEBUG] Time since last /active_hands: {Time.time - lastActiveHandsTime}");
-        // MediaPipeから何も来なくなったとき（通信停止）
-        if (Time.time - lastActiveHandsTime > activeHandsTimeout && wasPreviouslyActive)
-        {
-            Debug.LogWarning("🛑 /active_hands が途絶えています。MediaPipe無反応の可能性。");
-            HandEventManager.Instance.NotifyHandsInactive();
-            wasPreviouslyActive = false;
-        }
-    }
+    // void Update()
+    // {
+    //     // MediaPipeから何も来なくなったとき（通信停止）
+    //     if (Time.time - lastActiveHandsTime > activeHandsTimeout && wasPreviouslyActive)
+    //     {
+    //         Debug.LogWarning("🛑 /active_hands が途絶えています。MediaPipe無反応の可能性。");
+    //         HandEventManager.Instance.NotifyHandsInactive();
+    //         wasPreviouslyActive = false;
+    //     }
+    // }
     void OnActiveHands(OSCMessage message)
     {
         lastActiveHandsTime = Time.time;

@@ -16,14 +16,12 @@ public class VFXController : MonoBehaviour
     void Start()
     {
         defaultVector2Value = vector2Value; // 初期値を保存
-        Debug.Log("VFXController started with default vector2Value: " + defaultVector2Value);
         HandEventManager.Instance.OnRightHandChanged += HandleHandMove;
         HandEventManager.Instance.OnNoHandsDetected += Reset;
     }
 
     private void HandleHandMove(string handKey, Vector3 currentHandPos)
     {
-        Debug.Log($"HandleHandMove called with handKey: {handKey}, currentHandPos: {currentHandPos}");
         // 柔軟な条件で右手だけを対象に
         if (!handKey.ToLower().Contains("right")) return;
 
