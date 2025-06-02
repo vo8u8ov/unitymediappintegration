@@ -165,7 +165,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0, g: 0.7313299, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f107b7d68199c4b9bdb4e7a8f8397b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flowerParticle: {fileID: 1186677465}
   flowerPrefabs:
   - {fileID: 6998843929661581981, guid: 18b4d59ed6ae20f4f94a9f65714c8e07, type: 3}
   - {fileID: 955969513550418882, guid: 0aa471570be5c6d46b7f1ac13db10c5a, type: 3}
@@ -897,7 +898,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1186677464
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -919,7 +920,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a5a82e3d161011b40af5cf6913d30808, type: 2}
+  - {fileID: 2100000, guid: ac46e8668feaab9489b427af97fcee76, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5704,7 +5705,7 @@ Transform:
   m_GameObject: {fileID: 1186677463}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.44, y: 0.76, z: 0}
+  m_LocalPosition: {x: 6.24, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FlowerGlowManager : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem flowerParticle;
     public GameObject[] flowerPrefabs; // 5種類のPrefabを登録
     public int flowerCount = 50;
     public float glowDistance = 150f;
@@ -10,7 +11,6 @@ public class FlowerGlowManager : MonoBehaviour
     public Color glowColor = Color.yellow;
 
     private List<GameObject> flowerObjects = new List<GameObject>();
-    private Vector3 handScreenPos;
 
     void Start()
     {
@@ -41,9 +41,13 @@ public class FlowerGlowManager : MonoBehaviour
 
     void OnRightHandMoved(string key, Vector3 handWorldPos)
     {
+        if (flowerParticle != null)
+        {
+            flowerParticle.transform.position = handWorldPos;
+        }
+
         foreach (var flower in flowerObjects)
         {
-            Debug.Log("Checking flower: " + flower.name);
             Vector2 flowerXY = new Vector2(flower.transform.position.x, flower.transform.position.y);
             Vector2 handXY = new Vector2(handWorldPos.x, handWorldPos.y);
 
