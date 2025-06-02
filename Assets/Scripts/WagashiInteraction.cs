@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WagashiInteraction : MonoBehaviour
 {
+    public float maxScaleFactor = 1.5f;
     private Vector3 originalScale;
     private float scaleTime = 0f;
-    private float duration = 1f; // ← 長めにする（0.5〜1.0fくらいが自然）
+    private float duration = 1f; // ← 拡大から元に戻るまでの時間（例：1秒）
     private bool scaling = false;
 
     void Start()
@@ -20,7 +21,7 @@ public class WagashiInteraction : MonoBehaviour
         {
             scaleTime += Time.deltaTime;
             float t = scaleTime / duration;
-            float scale = Mathf.Lerp(2f, 1f, t);
+            float scale = Mathf.Lerp(maxScaleFactor, 1f, t);
             transform.localScale = originalScale * scale;
 
             if (t >= 1f)
@@ -32,6 +33,9 @@ public class WagashiInteraction : MonoBehaviour
     }
     public void TriggerPulse()
     {
+        // すでに拡大中なら何もしない
+        if (scaling) return;
+
         scaleTime = 0f;
         scaling = true;
     }
