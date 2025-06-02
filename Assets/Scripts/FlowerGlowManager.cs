@@ -14,7 +14,7 @@ public class FlowerGlowManager : MonoBehaviour
 
     void Start()
     {
-        // HandEventManager.Instance.OnRightHandChanged += OnRightHandMoved;
+        HandEventManager.Instance.OnRightHandChanged += OnRightHandMoved;
 
         // 🌸花をランダムに画面内に配置
         for (int i = 0; i < flowerCount; i++)
@@ -39,29 +39,23 @@ public class FlowerGlowManager : MonoBehaviour
             // HandEventManager.Instance.OnRightHandChanged -= OnRightHandMoved;
     }
 
-    // void OnRightHandMoved(string key, Vector3 worldPos)
-    // {
-    //     handScreenPos = Camera.main.WorldToScreenPoint(worldPos);
-    // }
+    void OnRightHandMoved(string key, Vector3 handWorldPos)
+    {
+        foreach (var flower in flowerObjects)
+        {
+            Debug.Log("Checking flower: " + flower.name);
+            Vector2 flowerXY = new Vector2(flower.transform.position.x, flower.transform.position.y);
+            Vector2 handXY = new Vector2(handWorldPos.x, handWorldPos.y);
 
-    // void Update()
-    // {
-    //     foreach (var flower in flowerObjects)
-    //     {
-    //         if (flower == null) continue;
-
-    //         Vector3 flowerScreenPos = Camera.main.WorldToScreenPoint(flower.transform.position);
-    //         float dist = Vector2.Distance(new Vector2(flowerScreenPos.x, flowerScreenPos.y), new Vector2(handScreenPos.x, handScreenPos.y));
-
-    //         var renderer = flower.GetComponent<Renderer>();
-    //         if (renderer != null)
-    //         {
-    //             MaterialPropertyBlock block = new MaterialPropertyBlock();
-    //             renderer.GetPropertyBlock(block);
-
-    //             block.SetColor("_Color", dist < glowDistance ? glowColor : normalColor);
-    //             renderer.SetPropertyBlock(block);
-    //         }
-    //     }
-    // }
+            float dist = Vector2.Distance(flowerXY, handXY);
+            if (dist < 1.0f)
+            {
+                FlowerInteraction fi = flower.GetComponent<FlowerInteraction>();
+                if (fi != null)
+                {
+                    fi.TriggerPulse();
+                }
+            }
+        }
+    }
 }
