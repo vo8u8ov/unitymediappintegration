@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8085752354698395845}
   - component: {fileID: 3869930623011859770}
   - component: {fileID: 1771273251297099228}
+  - component: {fileID: 6365470515590960952}
+  - component: {fileID: 3646666030505335792}
   m_Layer: 0
   m_Name: Flower3
   m_TagString: Untagged
@@ -106,3 +108,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6365470515590960952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779725461679910034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e03227d4c76b374ab20260924f506f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleSpeed: 1.5
+  wiggleAmount: 0.2
+--- !u!114 &3646666030505335792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779725461679910034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6159d52804ca4a4ab701011d6e2397b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleSpeed: 2
+  wiggleAmount: 0.1
+  rotateSpeed: 30
