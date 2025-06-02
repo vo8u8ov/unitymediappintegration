@@ -135,3 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2ff072d68758c47abeadd1227a72a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pulseColor: {r: 1, g: 0, b: 0.62614346, a: 1}

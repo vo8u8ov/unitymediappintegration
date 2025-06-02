@@ -6,9 +6,6 @@ public class FlowerGlowManager : MonoBehaviour
     [SerializeField] private ParticleSystem flowerParticle;
     public GameObject[] flowerPrefabs; // 5種類のPrefabを登録
     public int flowerCount = 50;
-    public float glowDistance = 150f;
-    public Color normalColor = Color.white;
-    public Color glowColor = Color.yellow;
 
     private List<GameObject> flowerObjects = new List<GameObject>();
 
