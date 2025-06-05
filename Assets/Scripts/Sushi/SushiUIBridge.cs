@@ -15,25 +15,19 @@ public class SushiUIBridge : MonoBehaviour
             if (!string.IsNullOrEmpty(name))
             {
                 panelManager.ShowPanel(name);
-                TriggerEffect(name);
+                foreach (var sushi in sushiObjects)
+                {
+                    var controller = sushi.GetComponent<SushiEffectController>();
+                    if (controller != null)
+                    {
+                        controller.SetSelected(sushi.name == name);
+                    }
+                }
             }
             else
             {
                 panelManager.HideAllPanels();
             }
         };
-    }
-    
-    void TriggerEffect(string sushiName)
-    {
-        var sushi = sushiObjects.Find(obj => obj.name == sushiName);
-        if (sushi != null)
-        {
-            var effect = sushi.GetComponent<SushiEffectController>();
-            if (effect != null)
-            {
-                effect.PlayEffect();
-            }
-        }
     }
 }

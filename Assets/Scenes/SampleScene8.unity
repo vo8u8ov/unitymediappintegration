@@ -4089,7 +4089,7 @@ PrefabInstance:
     - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6102235
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
@@ -4496,6 +4496,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 586769339}
     m_Modifications:
+    - target: {fileID: 98634099877407424, guid: 5f43f367fdffe914caa6c9d465638687,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2458071973749849257, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: sushiObjects.Array.size

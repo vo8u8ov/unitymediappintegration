@@ -5,6 +5,9 @@ using UnityEngine;
 public class SushiEffectController : MonoBehaviour
 {
     private ParticleSystem magicParticle;
+    private bool isSelected = false;
+    private float playInterval = 3.0f; // パーティクルの寿命と同じくらい
+    private float timer = 0f;
 
     void Start()
     {
@@ -16,15 +19,42 @@ public class SushiEffectController : MonoBehaviour
         }
     }
 
-    public void PlayEffect()
+    void Update()
     {
-        if (magicParticle == null) return;
+        if (isSelected && magicParticle != null)
+        {
+            timer += Time.deltaTime;
 
-        if (magicParticle.isPlaying)
+            if (timer >= playInterval)
+            {
+                magicParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                magicParticle.Play();
+                timer = 0f;
+            }
+        }
+    }
+
+   public void SetSelected(bool selected)
+    {
+        isSelected = selected;
+
+        if (selected)
+        {
+            timer = playInterval; // すぐ再生
+        }
+        else if (magicParticle != null)
         {
             magicParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
-
-        magicParticle.Play();
     }
+
+    public void PlayEffect()
+    {
+        // 明示的な1回再生（外部呼び出し用）
+        if (magicParticle != null)
+        {
+            magicParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            magicParticle.Play();
+        }
+    }     
 }
