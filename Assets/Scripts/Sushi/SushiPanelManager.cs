@@ -3,41 +3,52 @@ using UnityEngine;
 using TMPro;
 
 [System.Serializable]
-public class SushiInfo {
+public class SushiInfoPanel
+{
     public string name;
-    public string description;
+    public GameObject sushiInfoPanel; // Optional, if you want to instantiate a sushi object
 }
 
 public class SushiPanelManager : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject panelPrefab;           // SushiPanelのプレハブ
-    public Transform panelParent;            // 各パネルを配置する親Canvas内のTransform
+    public GameObject panelPrefab;
+    public Transform panelParent;
 
     [Header("Sushi Data")]
-    public List<SushiInfo> sushiList;        // 寿司の名前と説明リスト
+    public List<SushiInfoPanel> sushiPanelList;
+
+    private Dictionary<string, GameObject> sushiPanels = new Dictionary<string, GameObject>();
+    private string currentVisibleName = "";
 
     void Start()
     {
-        foreach (var sushi in sushiList)
+        foreach (var panel in sushiPanelList)
         {
-            CreateSushiPanel(sushi);
+            panel.sushiInfoPanel.SetActive(false);
+
+            sushiPanels[panel.name] = panel.sushiInfoPanel;
         }
     }
 
-    void CreateSushiPanel(SushiInfo sushi)
+    public void ShowPanel(string sushiName)
     {
-        GameObject panel = Instantiate(panelPrefab, panelParent);
+        if (currentVisibleName == sushiName) return;
 
-        // 子オブジェクトのTextMeshProUGUIを探す
-        var texts = panel.GetComponentsInChildren<TextMeshProUGUI>();
-        foreach (var text in texts)
+        foreach (var kvp in sushiPanels)
         {
-            if (text.name.Contains("Title"))
-                text.text = sushi.name;
-            else if (text.name.Contains("Description"))
-                text.text = sushi.description;
+            kvp.Value.SetActive(kvp.Key == sushiName);
         }
-        panel.SetActive(false);
+
+        currentVisibleName = sushiName;
+    }
+
+    public void HideAllPanels()
+    {
+        foreach (var panel in sushiPanels.Values)
+        {
+            panel.SetActive(false);
+        }
+        currentVisibleName = "";
     }
 }
