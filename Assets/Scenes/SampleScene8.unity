@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 15198546}
   - component: {fileID: 15198545}
   - component: {fileID: 15198544}
+  - component: {fileID: 15198548}
   m_Layer: 0
   m_Name: Hamachi
   m_TagString: Untagged
@@ -231,6 +232,18 @@ Transform:
   - {fileID: 1245906236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &15198548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15198542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &40075965
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +491,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1108,6 +1121,7 @@ GameObject:
   - component: {fileID: 398340612}
   - component: {fileID: 398340611}
   - component: {fileID: 398340610}
+  - component: {fileID: 398340614}
   m_Layer: 0
   m_Name: Iwashi
   m_TagString: Untagged
@@ -1205,6 +1219,18 @@ Transform:
   - {fileID: 1625589744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &398340614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398340608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,6 +1836,7 @@ GameObject:
   - component: {fileID: 586769338}
   - component: {fileID: 586769337}
   - component: {fileID: 586769336}
+  - component: {fileID: 586769340}
   m_Layer: 0
   m_Name: Ebi
   m_TagString: Untagged
@@ -1907,6 +1934,18 @@ Transform:
   - {fileID: 685925520}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &586769340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586769335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &636359476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +1992,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selector: {fileID: 2118304409}
   panelManager: {fileID: 40075971}
+  sushiObjects:
+  - {fileID: 586769335}
+  - {fileID: 2073551227}
+  - {fileID: 15198542}
+  - {fileID: 962986110}
+  - {fileID: 398340608}
+  - {fileID: 1234584506}
+  - {fileID: 1829410394}
 --- !u!1 &685925519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,7 +2112,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2366,7 +2413,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2391,6 +2438,7 @@ GameObject:
   - component: {fileID: 962986114}
   - component: {fileID: 962986113}
   - component: {fileID: 962986112}
+  - component: {fileID: 962986116}
   m_Layer: 0
   m_Name: Ikura
   m_TagString: Untagged
@@ -2488,6 +2536,18 @@ Transform:
   - {fileID: 542832243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962986116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962986110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &972695809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2802,7 +2862,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2895,6 +2955,7 @@ GameObject:
   - component: {fileID: 1234584510}
   - component: {fileID: 1234584509}
   - component: {fileID: 1234584508}
+  - component: {fileID: 1234584512}
   m_Layer: 0
   m_Name: Maguro
   m_TagString: Untagged
@@ -2992,6 +3053,18 @@ Transform:
   - {fileID: 1982477383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1234584512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234584506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1245906235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,6 +3104,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2073551232}
     m_Modifications:
+    - target: {fileID: 98634099877407424, guid: 5f43f367fdffe914caa6c9d465638687,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 98634099877407424, guid: 5f43f367fdffe914caa6c9d465638687,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3104,7 +3187,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3870,6 +3953,7 @@ GameObject:
   - component: {fileID: 1829410398}
   - component: {fileID: 1829410397}
   - component: {fileID: 1829410396}
+  - component: {fileID: 1829410400}
   m_Layer: 0
   m_Name: Uni
   m_TagString: Untagged
@@ -3967,6 +4051,18 @@ Transform:
   - {fileID: 349665396}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829410400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829410394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1849023391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4048,7 +4144,7 @@ PrefabInstance:
     - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4104,6 +4200,7 @@ GameObject:
   - component: {fileID: 2073551231}
   - component: {fileID: 2073551230}
   - component: {fileID: 2073551229}
+  - component: {fileID: 2073551233}
   m_Layer: 0
   m_Name: Ika
   m_TagString: Untagged
@@ -4201,6 +4298,18 @@ Transform:
   - {fileID: 866960223}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2073551233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073551227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6de59c010aa6547bd14ae265a619d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2099836488 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5732724902562612983, guid: b4f82a3354e937d45a18d635c4efc3de,
@@ -4387,21 +4496,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 586769339}
     m_Modifications:
-    - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
+    - target: {fileID: 2458071973749849257, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
-      propertyPath: m_LocalScale.x
+      propertyPath: sushiObjects.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
+    - target: {fileID: 2458071973749849257, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: sushiObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 586769335}
     - target: {fileID: 3806657388109711832, guid: 5f43f367fdffe914caa6c9d465638687,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4456,11 +4560,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Magic Circle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189235017563776398, guid: 5f43f367fdffe914caa6c9d465638687,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
