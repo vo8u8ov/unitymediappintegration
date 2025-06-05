@@ -27,6 +27,14 @@ public class SushiUIBridge : MonoBehaviour
             else
             {
                 panelManager.HideAllPanels();
+                foreach (var sushi in sushiObjects)
+                {
+                    var controller = sushi.GetComponent<SushiEffectController>();
+                    if (controller != null)
+                    {
+                        controller.SetSelected(false); // ✅ ここで止める
+                    }
+                }
             }
         };
     }
