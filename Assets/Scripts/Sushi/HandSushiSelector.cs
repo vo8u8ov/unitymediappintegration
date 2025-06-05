@@ -36,7 +36,6 @@ public class HandSushiSelector : MonoBehaviour
                 if (range.sushiName != currentName)
                 {
                     currentName = range.sushiName;
-                    Debug.Log($"Sushi selected: {currentName}");
                     OnSushiNameSelected?.Invoke(currentName);
                 }
                 return;
