@@ -1522,7 +1522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 397.26917, y: -158.61865}
+  m_AnchoredPosition: {x: 397.26917, y: -126}
   m_SizeDelta: {x: 650.9717, y: 147.3335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &499812104
@@ -1554,8 +1554,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285333740
-  m_fontColor: {r: 0.9254902, g: 0, b: 0.42775422, a: 1}
+    rgba: 4293678080
+  m_fontColor: {r: 0, g: 0.33092415, b: 0.9254902, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1572,8 +1572,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.28
-  m_fontSizeBase: 60.28
+  m_fontSize: 39.6
+  m_fontSizeBase: 39.6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2750,7 +2750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1023998080
 Transform:
   m_ObjectHideFlags: 0
@@ -2780,7 +2780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DetectionText: {fileID: 499812104}
   Text: Right hand in motion
-  FontSize: 60
+  FontSize: 39
 --- !u!1001 &1065896640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3441,8 +3441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 209}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 4, y: 447}
+  m_SizeDelta: {x: 78.35, y: 36.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1460484093
 MonoBehaviour:
@@ -3464,7 +3464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad81b796a673b4c4183de5075fff0de1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2f3fc94b85798d4089a94e46cf33707, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3655,7 +3655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1686418907
 MonoBehaviour:
   m_ObjectHideFlags: 0
