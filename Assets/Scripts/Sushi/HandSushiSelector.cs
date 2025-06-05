@@ -22,6 +22,7 @@ public class HandSushiSelector : MonoBehaviour
     void Start()
     {
         HandEventManager.Instance.OnRightHandChanged += OnRightHandMoved;
+        HandEventManager.Instance.OnNoHandsDetected += OnHandsLost;
     }
 
     void OnRightHandMoved(string key, Vector3 handWorldPos)
@@ -42,6 +43,16 @@ public class HandSushiSelector : MonoBehaviour
             }
         }
 
+        // // 範囲外
+        // if (!string.IsNullOrEmpty(currentName))
+        // {
+        //     currentName = "";
+        //     OnSushiNameSelected?.Invoke(null);
+        // }
+    }
+
+    void OnHandsLost()
+    {
         if (!string.IsNullOrEmpty(currentName))
         {
             currentName = "";
