@@ -12,9 +12,10 @@ public class ChopsticksFollower : MonoBehaviour
     [Header("固定座標")]
     public float fixedY = 0.5f;
     public float fixedZ = 0f;
+    public bool handActive = true;
 
     private Vector3 lastHandPos = Vector3.positiveInfinity;
-    private bool handActive = true;
+    
     private MeshRenderer meshRenderer;
 
     void Start()

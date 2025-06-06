@@ -179,6 +179,7 @@ MonoBehaviour:
   maxTransform: {fileID: 2013976363}
   fixedY: -2.33
   fixedZ: 0
+  handActive: 0
 --- !u!64 &261578713
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -405,12 +406,22 @@ MonoBehaviour:
   menuPanelList:
   - name: Beer
     menuInfoPanel: {fileID: 1692224953}
+    originalPosition: {x: 0, y: 0}
+    isAnimating: 0
   - name: Oshibori
     menuInfoPanel: {fileID: 1300744558}
+    originalPosition: {x: 0, y: 0}
+    isAnimating: 0
   - name: Yakitori
     menuInfoPanel: {fileID: 448588591}
+    originalPosition: {x: 0, y: 0}
+    isAnimating: 0
   - name: Edamame
     menuInfoPanel: {fileID: 1670754312}
+    originalPosition: {x: 0, y: 0}
+    isAnimating: 0
+  slideDistance: 300
+  duration: 0.4
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
