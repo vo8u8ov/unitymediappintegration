@@ -32,24 +32,29 @@ public class ChopsticksFollower : MonoBehaviour
 
     }
 
-    void OnHandMoved(string key, Vector3 handWorldPos)
+   void OnHandMoved(string key, Vector3 handWorldPos)
     {
         if (!key.StartsWith("right")) return;
         if (handWorldPos == lastHandPos) return;
         lastHandPos = handWorldPos;
 
-         // 手が再検出されたときの処理
-        if (!handActive)
-        {
-            handActive = true;
-            if (meshRenderer != null) meshRenderer.enabled = true;
-        }
-
-        // 箸が動ける範囲だけClampする（手のX座標は制限しない）
+        // X の範囲を取得
         float minX = Mathf.Min(minTransform.position.x, maxTransform.position.x);
         float maxX = Mathf.Max(minTransform.position.x, maxTransform.position.x);
-        float clampedX = Mathf.Clamp(handWorldPos.x, minX, maxX);
 
+        // 範囲外なら非表示にして終了
+        if (handWorldPos.x < minX || handWorldPos.x > maxX)
+        {
+            handActive = false;
+            if (meshRenderer != null) meshRenderer.enabled = false;
+            return;
+        }
+
+        // 範囲内なら表示＆移動
+        handActive = true;
+        if (meshRenderer != null) meshRenderer.enabled = true;
+
+        float clampedX = Mathf.Clamp(handWorldPos.x, minX, maxX);
         Vector3 targetPos = new Vector3(clampedX, fixedY, fixedZ);
         transform.position = targetPos;
     }
